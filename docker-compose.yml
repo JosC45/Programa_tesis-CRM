@@ -1,0 +1,88 @@
+version: '3.8'
+services:
+  bd_postgres:
+    image: postgres:14.18
+    ports:
+      - "${LOCAL_PORT_POSTGRES}:${CONTAINER_PORT_POSTGRES}"
+    volumes:
+      -bd_postgres_data:/var/lib/postgresql/data
+    environment:
+      -POSTGRES_USER=${USER_POSTGRES}
+      -POSTGRES_PASSWORD=${PASSWORD_POSTGRES}
+      -POSTGRES_DB=${DB_POSTGRES}
+    networks:
+      -crm_network
+    env_file:
+      - .env.development
+
+  service_crm:
+    container_name: CRM_Django
+    ports:
+      - "${LOCAL_PORT_CRM}:${CONTAINER_PORT_CRM}"
+    build:
+      context: ./CRM_Django
+      dockerfile: DockerFile
+    environment:
+      - DB_HOST=bd_postgres
+      - DB_PORT=${CONTAINER_PORT_DB}
+      - DB_NAME=${NAME_DB}
+      - DB_USER=${USER_DB}
+      - DB_PASSWORD=${PASSWORD_DB}
+    depends_on:
+      - bd_postgres
+    volumes:
+      - ./CRM_Django:/crm_django
+    networks:
+      - crm_network
+      - service_network
+    env_file:
+      - .env.development
+  
+  nlp_service:
+    container_name: NLP_Service
+    build:
+      context: ./NLP_Service
+      dockerfile: DockerFile
+    ports:
+      - "${LOCAL_PORT_NLP}:${CONTAINER_PORT_NLP}"
+    environment:
+      - HOST_CRM=${HOST_CRM}
+    depends_on:
+      - service_crm
+    volumes:
+      - ./NLP_Service:/nlp_service
+    networks:
+      - service_network
+    env_file:
+      - .env.development
+  frontend:
+    container_name: Angular_frontend
+    build:
+      context: ./Angular_frontend
+      dockerfile: DockerFile
+    ports:
+      - "${LOCAL_PORT_FRONTEND}:${CONTAINER_PORT_FRONTEND}"
+    environment:
+      - API_URL=${API_URL}
+    depends_on:
+      - service_crm
+    volumes:
+      - ./Angular_frontend:/angular_frontend
+    networks:
+      - service_network
+    env_file:
+      - .env.development
+volumes:
+  bd_postgres_data:
+    driver: local
+  crm_django:
+    driver: local
+  nlp_service:
+    driver: local
+  angular_frontend:
+    driver: local
+networks:
+  crm_network:
+    driver: bridge
+  service_network:
+    driver: bridge

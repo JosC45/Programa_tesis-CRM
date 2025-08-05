@@ -1,0 +1,14 @@
+FROM python:3.12
+
+WORKDIR crm_Django
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 8000
+
+# Crear la base de datos
+CMD ["python","manage.py","migrate"]
+# Runear el proyecto
+CMD ["python","manage.py","runserver"]
+

@@ -1,0 +1,6 @@
+CRM_Django/.unchained
+__pycache__/
+NLP_Service/.venv
+Angular_frontend/node_modules
+.env.development
+Angular_frontend/.vscode
