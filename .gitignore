@@ -1,6 +1,8 @@
 CRM_Django/.unchained
 __pycache__/
 NLP_Service/.venv
-Angular_frontend/node_modules
+Frontend/Angular_frontend/node_modules
+Frontend/Angular_frontend/.vscode
 .env.development
-Angular_frontend/.vscode
+Frontend/.vscode
+.env

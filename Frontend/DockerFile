@@ -1,0 +1,17 @@
+FROM node:22.18.0-slim
+
+RUN npm install -g @angular/cli@20
+
+WORKDIR /angular_frontend
+
+COPY ./Angular_frontend/package*.json ./
+
+RUN rm -rf node_modules && \
+    npm cache clean --force && \
+    npm install --no-audit --no-fund --legacy-peer-deps
+
+COPY ./Angular_frontend .
+
+EXPOSE 4200
+
+CMD ["ng","serve","--host","0.0.0.0"]
