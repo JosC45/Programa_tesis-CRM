@@ -1,6 +1,6 @@
 FROM python:3.12
 
-WORKDIR crm_Django
+WORKDIR /crm_django
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

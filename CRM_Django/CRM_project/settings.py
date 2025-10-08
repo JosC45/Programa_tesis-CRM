@@ -58,11 +58,19 @@ INSTALLED_APPS = [
 
     # Swagger / OpenAPI
     'drf_spectacular',
+    #'drf_spectacular_sidecar',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Para autenticación de usuarios estándar
+]
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'API de Mi Proyecto',
@@ -71,6 +79,9 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,  # No incluir el esquema en la documentación
     'COMPONENT_SPLIT_REQUEST': True,
     'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
+    #'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    #'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    #'REDOC_DIST': 'SIDECAR',
 }
 
 MIDDLEWARE = [

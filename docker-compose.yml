@@ -40,7 +40,7 @@ services:
       bd_postgres:
         condition: service_healthy
     volumes:
-      - ./CRM_Django:/crm_django
+      - ./CRM_DJANGO:/crm_django
     networks:
       - crm_network
       - service_network
@@ -63,11 +63,9 @@ services:
       - service_network
 volumes:
   bd_postgres_data:
-    driver: local
-  crm_django:
-    driver: local
   angular_frontend:
-    driver: local
+  #crm_django:
+  
 networks:
   crm_network:
     driver: bridge
