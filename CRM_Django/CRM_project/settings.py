@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     #APPS
     'apps.authentication',
     'apps.services',
-    'apps.cycle',
+    'apps.time',
+    
 
     'rest_framework',
     'rest_framework.authtoken',

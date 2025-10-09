@@ -10,7 +10,7 @@ from utils.permissions.isAdminUser import IsAdminUser
 
 
 class RegisterView(generics.GenericAPIView):
-    permission_classes = [IsAdminUser]  # Solo el admin puede registrar nuevos usuarios
+    permission_classes = [IsAdminUser]  
     serializer_class = UserSerializer
 
     def post(self, request):
