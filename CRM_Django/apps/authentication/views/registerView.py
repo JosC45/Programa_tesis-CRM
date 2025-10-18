@@ -9,8 +9,7 @@ from rest_framework import generics
 from utils.permissions.isAdminUser import IsAdminUser
 
 
-class RegisterView(generics.GenericAPIView):
-    permission_classes = [IsAdminUser]  
+class RegisterView(generics.GenericAPIView): 
     serializer_class = UserSerializer
 
     def post(self, request):
