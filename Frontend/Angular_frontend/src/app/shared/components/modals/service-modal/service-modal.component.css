@@ -1,0 +1,25 @@
+.service-modal {
+  min-width: 500px;
+}
+
+.form-section {
+  margin-bottom: 24px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+button {
+  margin-left: 8px;
+}

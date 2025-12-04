@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { StaffLayoutComponent } from './layout/staff-layout.component';
+import { StaffLayoutComponent } from './layout/staff-layout/staff-layout.component';
 
 export const STAFF_ROUTES: Routes = [
   {
@@ -8,25 +8,29 @@ export const STAFF_ROUTES: Routes = [
     children: [
       {
         path: 'workshops',
-        loadComponent: () => import('./pages/workshops/workshops.component').then(m => m.WorkshopsComponent)
+        loadComponent: () => import('./pages/workshops/workshops').then(m => m.Workshops)
       },
       {
         path: 'students',
-        loadComponent: () => import('./pages/students/students.component').then(m => m.StudentsComponent)
+        loadComponent: () => import('./pages/students/students').then(m => m.Students)
       },
       {
         path: 'teachers',
-        loadComponent: () => import('./pages/teachers/teachers.component').then(m => m.TeachersComponent)
+        loadComponent: () => import('./pages/teachers/teachers').then(m => m.Teachers)
       },
       {
         path: 'services',
-        loadComponent: () => import('./pages/services/services.component').then(m => m.ServicesComponent)
+        loadComponent: () => import('./pages/services/services').then(m => m.Services)
       },
       {
         path: 'surveys',
-        loadComponent: () => import('./pages/surveys/surveys.component').then(m => m.SurveysComponent)
+        loadComponent: () => import('./pages/surveys/surveys').then(m => m.Surveys)
       },
-      { path: '', redirectTo: 'workshops', pathMatch: 'full' }
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }
 ];

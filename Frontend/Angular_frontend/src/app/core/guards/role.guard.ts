@@ -8,9 +8,17 @@ export const roleGuard: CanActivateFn = (route, state) => {
   const expectedRole = route.data['role'];
   const userRole = authService.getUserRole();
 
+  // Si no está autenticado, redirigir al login
+  if (!authService.isAuthenticated()) {
+    router.navigate(['/auth/login']);
+    return false;
+  }
+
+  // Si está autenticado pero no tiene el rol correcto, mostrar página de no autorizado
   if (userRole !== expectedRole) {
     router.navigate(['/unauthorized']);
     return false;
   }
+
   return true;
 };

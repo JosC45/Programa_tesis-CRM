@@ -1,0 +1,31 @@
+.workshops-container {
+  padding: 20px;
+}
+
+.workshops-container h1 {
+  color: #1976d2;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.workshops-card {
+  margin-bottom: 24px;
+}
+
+.workshops-table {
+  width: 100%;
+}
+
+.mat-mdc-raised-button {
+  margin: 4px;
+}
+
+.mat-column-acciones {
+  width: 200px;
+  text-align: center;
+}
+
+.mat-column-cupos_disponibles {
+  width: 150px;
+  text-align: center;
+}

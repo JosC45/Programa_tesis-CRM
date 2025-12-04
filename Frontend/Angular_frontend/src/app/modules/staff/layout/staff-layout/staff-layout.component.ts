@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 interface MenuItem {
   title: string;
@@ -41,6 +41,7 @@ export class StaffLayoutComponent implements OnInit {
   userRole: string = 'staff';
 
   menuItems: MenuItem[] = [
+    { title: 'Dashboard', icon: 'dashboard', route: 'dashboard' },
     { title: 'Talleres', icon: 'school', route: 'workshops' },
     { title: 'Estudiantes', icon: 'people', route: 'students' },
     { title: 'Docentes', icon: 'person', route: 'teachers' },
@@ -52,9 +53,9 @@ export class StaffLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     // Get user info from auth service
-    const user = this.authService.getCurrentUser();
+    const user = this.authService.currentUserValue;
     if (user) {
-      this.userName = user.name || 'Usuario';
+      this.userName = user.first_name || 'Usuario';
       this.userRole = user.role || 'staff';
     }
   }

@@ -1,1 +1,101 @@
-<p>surveys works!</p>
+<div class="surveys-container">
+  <div class="header">
+    <h1>Gestión de Encuestas</h1>
+    <button mat-raised-button color="primary" (click)="createSurvey()">
+      <mat-icon>add</mat-icon>
+      Nueva Encuesta
+    </button>
+  </div>
+
+  <!-- Filtro de búsqueda -->
+  <mat-card class="filter-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar encuesta...</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Título, servicio..." #input>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="surveys-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="surveys" matSort class="surveys-table">
+        <!-- Título Column -->
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+          <td mat-cell *matCellDef="let survey">
+            <div class="survey-title" [matTooltip]="survey.titulo">
+              {{ survey.titulo.length > 50 ? survey.titulo.substring(0, 50) + '...' : survey.titulo }}
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Servicio Column -->
+        <ng-container matColumnDef="servicio">
+          <th mat-header-cell *matHeaderCellDef>Servicio</th>
+          <td mat-cell *matCellDef="let survey">{{ survey.servicio?.nombre }}</td>
+        </ng-container>
+
+        <!-- Activa Column -->
+        <ng-container matColumnDef="activa">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let survey">
+            <mat-chip [color]="survey.activa ? 'primary' : 'warn'" selected>
+              {{ survey.activa ? 'Activa' : 'Inactiva' }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Fecha Creación Column -->
+        <ng-container matColumnDef="fecha_creacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Creación</th>
+          <td mat-cell *matCellDef="let survey">{{ survey.created_at | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Total Respuestas Column -->
+        <ng-container matColumnDef="total_responses">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Respuestas</th>
+          <td mat-cell *matCellDef="let survey">{{ survey.total_responses }}</td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let survey">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="viewSurveyResults(survey)">
+                <mat-icon>bar_chart</mat-icon>
+                <span>Ver Resultados</span>
+              </button>
+              <button mat-menu-item (click)="editSurvey(survey)">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+              <button mat-menu-item (click)="duplicateSurvey(survey)">
+                <mat-icon>content_copy</mat-icon>
+                <span>Duplicar</span>
+              </button>
+              <button mat-menu-item (click)="toggleSurveyStatus(survey)">
+                <mat-icon>{{ survey.activa ? 'block' : 'check_circle' }}</mat-icon>
+                <span>{{ survey.activa ? 'Desactivar' : 'Activar' }}</span>
+              </button>
+              <button mat-menu-item (click)="deleteSurvey(survey)" class="delete-option">
+                <mat-icon>delete</mat-icon>
+                <span>Eliminar</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

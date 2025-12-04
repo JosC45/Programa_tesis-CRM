@@ -1,0 +1,58 @@
+.students-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  color: #1976d2;
+  margin: 0;
+  font-weight: 500;
+}
+
+.filter-card {
+  margin-bottom: 24px;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.students-card {
+  margin-bottom: 24px;
+}
+
+.students-table {
+  width: 100%;
+}
+
+.mat-column-acciones {
+  width: 60px;
+  text-align: center;
+}
+
+.mat-column-rut {
+  width: 120px;
+}
+
+.mat-column-año_ingreso {
+  width: 100px;
+}
+
+.mat-column-telefono {
+  width: 140px;
+}
+
+.delete-option {
+  color: #f44336;
+}
+
+.delete-option .mat-icon {
+  color: #f44336;
+}

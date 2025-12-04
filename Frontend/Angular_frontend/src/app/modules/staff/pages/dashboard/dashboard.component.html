@@ -1,0 +1,190 @@
+<div class="dashboard-container">
+  <div class="header">
+    <h1>Dashboard de Gestión</h1>
+    <button mat-raised-button color="primary" (click)="refreshData()">
+      <mat-icon>refresh</mat-icon>
+      Actualizar
+    </button>
+  </div>
+
+  <!-- Estadísticas principales -->
+  <mat-grid-list cols="3" rowHeight="120px" class="stats-grid">
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon surveys">assignment</mat-icon>
+            <div class="stat-info">
+              <h2>{{ stats.totalSurveys }}</h2>
+              <p>Total Encuestas</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon active-surveys">check_circle</mat-icon>
+            <div class="stat-info">
+              <h2>{{ stats.activeSurveys }}</h2>
+              <p>Encuestas Activas</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon workshops">school</mat-icon>
+            <div class="stat-info">
+              <h2>{{ stats.totalWorkshops }}</h2>
+              <p>Total Talleres</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon active-workshops">work</mat-icon>
+            <div class="stat-info">
+              <h2>{{ stats.activeWorkshops }}</h2>
+              <p>Talleres Activos</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon students">people</mat-icon>
+            <div class="stat-info">
+              <h2>{{ stats.totalStudents }}</h2>
+              <p>Estudiantes</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-card class="stat-card">
+        <mat-card-content>
+          <div class="stat-content">
+            <mat-icon class="stat-icon responses">analytics</mat-icon>
+            <div class="stat-info">
+              <h2>{{ stats.totalResponses }}</h2>
+              <p>Total Respuestas</p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- Gráficos -->
+  <div class="charts-section">
+    <h2>Estadísticas y Reportes</h2>
+
+    <mat-grid-list cols="2" rowHeight="400px" class="charts-grid">
+      <!-- Gráfico de respuestas por encuesta -->
+      <mat-grid-tile>
+        <mat-card class="chart-card">
+          <mat-card-header>
+            <mat-card-title>Respuestas por Encuesta</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <canvas baseChart
+                    [data]="surveyResponseChartData"
+                    [options]="chartOptions"
+                    type="bar">
+            </canvas>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <!-- Gráfico de matrículas por taller -->
+      <mat-grid-tile>
+        <mat-card class="chart-card">
+          <mat-card-header>
+            <mat-card-title>Matrículas por Taller</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <canvas baseChart
+                    [data]="workshopEnrollmentChartData"
+                    [options]="chartOptions"
+                    type="bar">
+            </canvas>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+      <!-- Gráfico circular de tipos de servicio -->
+      <mat-grid-tile colspan="2">
+        <mat-card class="chart-card">
+          <mat-card-header>
+            <mat-card-title>Distribución por Tipo de Servicio</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="pie-chart-container">
+            <canvas baseChart
+                    [data]="surveyTypeChartData"
+                    [options]="pieChartOptions"
+                    type="pie">
+            </canvas>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <!-- Tabla de encuestas recientes -->
+  <mat-card class="recent-surveys-card">
+    <mat-card-header>
+      <mat-card-title>Encuestas Recientes</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="recentSurveys" matSort class="surveys-table">
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+          <td mat-cell *matCellDef="let survey">{{ survey.titulo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="servicio">
+          <th mat-header-cell *matHeaderCellDef>Servicio</th>
+          <td mat-cell *matCellDef="let survey">{{ survey.servicio?.nombre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="activa">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let survey">
+            <mat-chip [color]="survey.activa ? 'primary' : 'warn'" selected>
+              {{ survey.activa ? 'Activa' : 'Inactiva' }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total_responses">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Respuestas</th>
+          <td mat-cell *matCellDef="let survey">{{ survey.total_responses }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

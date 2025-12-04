@@ -1,0 +1,41 @@
+.psicopedagogias-container {
+  padding: 20px;
+}
+
+.psicopedagogias-container h1 {
+  color: #1976d2;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.psicopedagogias-card {
+  margin-bottom: 24px;
+}
+
+.psicopedagogias-table {
+  width: 100%;
+}
+
+.mat-column-observaciones {
+  max-width: 200px;
+}
+
+.mat-column-observaciones span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-psicopedagogias {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+.no-psicopedagogias mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}

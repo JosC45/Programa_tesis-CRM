@@ -1,0 +1,29 @@
+.users-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  color: #1976d2;
+  margin: 0;
+  font-weight: 500;
+}
+
+.users-card {
+  margin-bottom: 24px;
+}
+
+.users-table {
+  width: 100%;
+}
+
+.mat-column-actions {
+  width: 60px;
+  text-align: center;
+}

@@ -1,0 +1,97 @@
+<div class="student-modal">
+  <h2 mat-dialog-title>{{ title }}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+      <!-- Información del Usuario -->
+      <div class="form-section">
+        <h3>Información del Usuario</h3>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="username" placeholder="nombre.usuario">
+          <mat-error *ngIf="studentForm.get('user.username')?.invalid && studentForm.get('user.username')?.touched">
+            {{ getErrorMessage('user.username') }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="first_name" placeholder="Juan">
+            <mat-error *ngIf="studentForm.get('user.first_name')?.invalid && studentForm.get('user.first_name')?.touched">
+              {{ getErrorMessage('user.first_name') }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Apellido</mat-label>
+            <input matInput formControlName="last_name" placeholder="Pérez">
+            <mat-error *ngIf="studentForm.get('user.last_name')?.invalid && studentForm.get('user.last_name')?.touched">
+              {{ getErrorMessage('user.last_name') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="juan.perez@universidad.edu">
+          <mat-error *ngIf="studentForm.get('user.email')?.invalid && studentForm.get('user.email')?.touched">
+            {{ getErrorMessage('user.email') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width" *ngIf="!isEditing">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="studentForm.get('user.password')?.invalid && studentForm.get('user.password')?.touched">
+            {{ getErrorMessage('user.password') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Información del Estudiante -->
+      <div class="form-section">
+        <h3>Información Académica</h3>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>RUT</mat-label>
+          <input matInput formControlName="rut" placeholder="12.345.678-9">
+          <mat-error *ngIf="studentForm.get('rut')?.invalid && studentForm.get('rut')?.touched">
+            {{ getErrorMessage('rut') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Carrera</mat-label>
+          <input matInput formControlName="carrera" placeholder="Ingeniería en Informática">
+          <mat-error *ngIf="studentForm.get('carrera')?.invalid && studentForm.get('carrera')?.touched">
+            {{ getErrorMessage('carrera') }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Año de Ingreso</mat-label>
+            <input matInput type="number" formControlName="año_ingreso" placeholder="2020">
+            <mat-error *ngIf="studentForm.get('año_ingreso')?.invalid && studentForm.get('año_ingreso')?.touched">
+              {{ getErrorMessage('año_ingreso') }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Teléfono (Opcional)</mat-label>
+            <input matInput formControlName="telefono" placeholder="+56912345678">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="studentForm.invalid">
+      {{ isEditing ? 'Actualizar' : 'Crear' }}
+    </button>
+  </mat-dialog-actions>
+</div>

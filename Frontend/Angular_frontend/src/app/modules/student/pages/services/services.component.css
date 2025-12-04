@@ -1,0 +1,28 @@
+.services-container {
+  padding: 20px;
+}
+
+.services-container h1 {
+  color: #1976d2;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.services-grid {
+  margin-top: 24px;
+}
+
+.service-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card mat-card-content {
+  flex-grow: 1;
+}
+
+.service-card mat-card-actions {
+  justify-content: center;
+  padding-top: 16px;
+}

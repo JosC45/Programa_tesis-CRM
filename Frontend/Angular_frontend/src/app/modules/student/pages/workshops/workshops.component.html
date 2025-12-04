@@ -1,0 +1,61 @@
+<div class="workshops-container">
+  <h1>Talleres Disponibles</h1>
+
+  <mat-card class="workshops-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="workshops" matSort class="workshops-table">
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del Taller</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.nombre_taller?.nombre }}</td>
+        </ng-container>
+
+        <!-- Ciclo Column -->
+        <ng-container matColumnDef="ciclo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ciclo</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.ciclo?.nombre }}</td>
+        </ng-container>
+
+        <!-- Cupos Disponibles Column -->
+        <ng-container matColumnDef="cupos_disponibles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cupos Disponibles</th>
+          <td mat-cell *matCellDef="let workshop">
+            <mat-chip [color]="workshop.cupos_disponibles > 0 ? 'primary' : 'warn'" selected>
+              {{ workshop.cupos_disponibles }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Fecha Inicio Column -->
+        <ng-container matColumnDef="fecha_inicio">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Inicio</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.fecha_inicio | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Fecha Fin Column -->
+        <ng-container matColumnDef="fecha_fin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Fin</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.fecha_fin | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let workshop">
+            <button mat-raised-button color="primary"
+                    [disabled]="workshop.cupos_disponibles <= 0"
+                    (click)="enrollWorkshop(workshop)">
+              <mat-icon>person_add</mat-icon>
+              Matricularme
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,34 @@
+.services-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  color: #1976d2;
+  margin: 0;
+  font-weight: 500;
+}
+
+.services-card {
+  margin-bottom: 24px;
+}
+
+.services-table {
+  width: 100%;
+}
+
+.mat-column-acciones {
+  width: 60px;
+  text-align: center;
+}
+
+.mat-column-tipo {
+  width: 150px;
+  text-align: center;
+}

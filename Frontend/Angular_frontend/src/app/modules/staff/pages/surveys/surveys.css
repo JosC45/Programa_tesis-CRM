@@ -1,0 +1,75 @@
+.surveys-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  color: #1976d2;
+  margin: 0;
+  font-weight: 500;
+}
+
+.filter-card {
+  margin-bottom: 24px;
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+}
+
+.surveys-card {
+  margin-bottom: 24px;
+}
+
+.surveys-table {
+  width: 100%;
+}
+
+.survey-title {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-acciones {
+  width: 60px;
+  text-align: center;
+}
+
+.mat-column-titulo {
+  min-width: 200px;
+}
+
+.mat-column-servicio {
+  min-width: 150px;
+}
+
+.mat-column-activa {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-fecha_creacion {
+  width: 120px;
+}
+
+.mat-column-total_responses {
+  width: 100px;
+  text-align: center;
+}
+
+.delete-option {
+  color: #f44336;
+}
+
+.delete-option .mat-icon {
+  color: #f44336;
+}

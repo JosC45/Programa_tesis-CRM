@@ -14,10 +14,10 @@ export const routes: Routes = [
     loadChildren: () => import('./modules/admin/admin.routes').then(m => m.ADMIN_ROUTES)
   },
   {
-    path: 'services',
+    path: 'staff',
     canActivate: [authGuard, roleGuard],
     data: { role: 'staff' },
-    loadChildren: () => import('./modules/servicios/staff.routes').then(m => m.STAFF_ROUTES)
+    loadChildren: () => import('./modules/staff/staff.routes').then(m => m.STAFF_ROUTES)
   },
   {
     path: 'student',
@@ -25,6 +25,7 @@ export const routes: Routes = [
     data: { role: 'student' },
     loadChildren: () => import('./modules/student/student.routes').then(m => m.STUDENT_ROUTES)
   },
+  { path: 'unauthorized', loadComponent: () => import('./shared/components/unauthorized/unauthorized.component').then(m => m.UnauthorizedComponent) },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/auth/login' }
 ];

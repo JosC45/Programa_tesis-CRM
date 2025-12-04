@@ -1,0 +1,58 @@
+.surveys-container {
+  padding: 20px;
+}
+
+.surveys-container h1 {
+  color: #1976d2;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.surveys-card {
+  margin-bottom: 24px;
+}
+
+.survey-item {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 0;
+}
+
+.survey-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.survey-info {
+  flex: 1;
+}
+
+.survey-info h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.survey-info p {
+  margin: 4px 0;
+  color: #666;
+}
+
+.survey-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.no-surveys {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+.no-surveys mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}

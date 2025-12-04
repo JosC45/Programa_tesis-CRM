@@ -8,9 +8,6 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthService } from '../../core/services/auth.service';
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
   imports: [
     CommonModule,
     RouterModule.forChild(AUTH_ROUTES),

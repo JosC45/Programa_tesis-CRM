@@ -1,0 +1,45 @@
+<div class="service-modal">
+  <h2 mat-dialog-title>{{ title }}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+      <div class="form-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre del Servicio</mat-label>
+          <input matInput formControlName="nombre" placeholder="Taller de Desarrollo Personal">
+          <mat-error *ngIf="serviceForm.get('nombre')?.invalid && serviceForm.get('nombre')?.touched">
+            {{ getErrorMessage('nombre') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Tipo de Servicio</mat-label>
+          <mat-select formControlName="tipo">
+            <mat-option *ngFor="let type of serviceTypes" [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="serviceForm.get('tipo')?.invalid && serviceForm.get('tipo')?.touched">
+            {{ getErrorMessage('tipo') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="descripcion" rows="4"
+                    placeholder="Describe detalladamente el servicio y sus objetivos..."></textarea>
+          <mat-error *ngIf="serviceForm.get('descripcion')?.invalid && serviceForm.get('descripcion')?.touched">
+            {{ getErrorMessage('descripcion') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="serviceForm.invalid">
+      {{ isEditing ? 'Actualizar' : 'Crear' }}
+    </button>
+  </mat-dialog-actions>
+</div>

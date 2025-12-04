@@ -1,1 +1,169 @@
-<p>workshops works!</p>
+<div class="workshops-container">
+  <div class="header">
+    <h1>Gestión de Talleres</h1>
+    <button mat-raised-button color="primary">
+      <mat-icon>add</mat-icon>
+      Crear Taller
+    </button>
+  </div>
+
+  <mat-card class="workshops-card">
+    <mat-card-header>
+      <mat-card-title>Talleres Disponibles</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <table mat-table [dataSource]="workshops" matSort class="workshops-table">
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del Taller</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.nombre_taller?.nombre }}</td>
+        </ng-container>
+
+        <!-- Ciclo Column -->
+        <ng-container matColumnDef="ciclo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ciclo</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.ciclo?.nombre }}</td>
+        </ng-container>
+
+        <!-- Cupos Column -->
+        <ng-container matColumnDef="cupos">
+          <th mat-header-cell *matHeaderCellDef>Cupos Totales</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.cupos }}</td>
+        </ng-container>
+
+        <!-- Cupos Disponibles Column -->
+        <ng-container matColumnDef="cupos_disponibles">
+          <th mat-header-cell *matHeaderCellDef>Cupos Disponibles</th>
+          <td mat-cell *matCellDef="let workshop">
+            <mat-chip [color]="workshop.cupos_disponibles > 0 ? 'primary' : 'warn'" selected>
+              {{ workshop.cupos_disponibles }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Fecha Inicio Column -->
+        <ng-container matColumnDef="fecha_inicio">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Inicio</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.fecha_inicio | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Fecha Fin Column -->
+        <ng-container matColumnDef="fecha_fin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Fin</th>
+          <td mat-cell *matCellDef="let workshop">{{ workshop.fecha_fin | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Activo Column -->
+        <ng-container matColumnDef="activo">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let workshop">
+            <mat-chip [color]="workshop.activo ? 'primary' : 'warn'" selected>
+              {{ workshop.activo ? 'Activo' : 'Inactivo' }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let workshop">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="viewEnrollments(workshop)">
+                <mat-icon>people</mat-icon>
+                <span>Ver Matrículas</span>
+              </button>
+              <button mat-menu-item (click)="toggleWorkshopStatus(workshop)">
+                <mat-icon>{{ workshop.activo ? 'block' : 'check_circle' }}</mat-icon>
+                <span>{{ workshop.activo ? 'Desactivar' : 'Activar' }}</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+              <button mat-menu-item color="warn">
+                <mat-icon>delete</mat-icon>
+                <span>Eliminar</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Modal de Matrículas -->
+  <mat-card *ngIf="selectedWorkshop" class="enrollments-card">
+    <mat-card-header>
+      <mat-card-title>Matrículas - {{ selectedWorkshop.nombre_taller?.nombre }}</mat-card-title>
+      <button mat-icon-button (click)="selectedWorkshop = null" class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <table mat-table [dataSource]="enrollments" class="enrollments-table">
+        <!-- Alumno Column -->
+        <ng-container matColumnDef="alumno">
+          <th mat-header-cell *matHeaderCellDef>Alumno</th>
+          <td mat-cell *matCellDef="let enrollment">
+            {{ enrollment.alumno?.user?.first_name }} {{ enrollment.alumno?.user?.last_name }}
+          </td>
+        </ng-container>
+
+        <!-- Estado Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let enrollment">
+            <mat-form-field appearance="outline" class="status-select">
+              <mat-label>Estado</mat-label>
+              <mat-select [value]="enrollment.estado" (selectionChange)="updateEnrollmentStatus(enrollment, $event.value)">
+                <mat-option value="inscrito">Inscrito</mat-option>
+                <mat-option value="aprobado">Aprobado</mat-option>
+                <mat-option value="reprobado">Reprobado</mat-option>
+                <mat-option value="retirado">Retirado</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Calificación Column -->
+        <ng-container matColumnDef="calificacion">
+          <th mat-header-cell *matHeaderCellDef>Calificación</th>
+          <td mat-cell *matCellDef="let enrollment">
+            <mat-form-field appearance="outline">
+              <input matInput type="number" [value]="enrollment.calificacion" placeholder="0.0" min="1" max="7" step="0.1">
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <!-- Asistencia Column -->
+        <ng-container matColumnDef="asistencia">
+          <th mat-header-cell *matHeaderCellDef>Asistencia (%)</th>
+          <td mat-cell *matCellDef="let enrollment">{{ enrollment.asistencia }}%</td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let enrollment">
+            <button mat-icon-button (click)="assignPsicopedagogia(enrollment)" matTooltip="Asignar Psicopedagogía">
+              <mat-icon>psychology</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="enrollmentColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: enrollmentColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,1 +1,93 @@
-<p>students works!</p>
+<div class="students-container">
+  <div class="header">
+    <h1>Gestión de Estudiantes</h1>
+    <button mat-raised-button color="primary" (click)="createStudent()">
+      <mat-icon>person_add</mat-icon>
+      Nuevo Estudiante
+    </button>
+  </div>
+
+  <!-- Filtro de búsqueda -->
+  <mat-card class="filter-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar estudiante...</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Nombre, RUT, carrera..." #input>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="students-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="students" matSort class="students-table">
+        <!-- RUT Column -->
+        <ng-container matColumnDef="rut">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>RUT</th>
+          <td mat-cell *matCellDef="let student">{{ student.rut }}</td>
+        </ng-container>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Completo</th>
+          <td mat-cell *matCellDef="let student">
+            {{ student.user.first_name }} {{ student.user.last_name }}
+          </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let student">{{ student.user.email }}</td>
+        </ng-container>
+
+        <!-- Carrera Column -->
+        <ng-container matColumnDef="carrera">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Carrera</th>
+          <td mat-cell *matCellDef="let student">{{ student.carrera }}</td>
+        </ng-container>
+
+        <!-- Año Ingreso Column -->
+        <ng-container matColumnDef="ano_ingreso">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Año Ingreso</th>
+          <td mat-cell *matCellDef="let student">{{ student.ano_ingreso }}</td>
+        </ng-container>
+
+        <!-- Teléfono Column -->
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+          <td mat-cell *matCellDef="let student">{{ student.telefono || 'No registrado' }}</td>
+        </ng-container>
+
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let student">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Opciones">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="viewStudentDetails(student)">
+                <mat-icon>visibility</mat-icon>
+                <span>Ver Detalles</span>
+              </button>
+              <button mat-menu-item (click)="editStudent(student)">
+                <mat-icon>edit</mat-icon>
+                <span>Editar</span>
+              </button>
+              <button mat-menu-item (click)="deleteStudent(student)" class="delete-option">
+                <mat-icon>delete</mat-icon>
+                <span>Eliminar</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

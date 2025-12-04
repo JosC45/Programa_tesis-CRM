@@ -1,0 +1,65 @@
+<div class="psicopedagogias-container">
+  <h1>Mis Psicopedagogías Programadas</h1>
+
+  <mat-card class="psicopedagogias-card">
+    <mat-card-content>
+      <table mat-table [dataSource]="psicopedagogias" matSort class="psicopedagogias-table">
+        <!-- Fecha Column -->
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+          <td mat-cell *matCellDef="let psicopedagogia">{{ psicopedagogia.fecha | date:'dd/MM/yyyy' }}</td>
+        </ng-container>
+
+        <!-- Hora Inicio Column -->
+        <ng-container matColumnDef="hora_inicio">
+          <th mat-header-cell *matHeaderCellDef>Hora Inicio</th>
+          <td mat-cell *matCellDef="let psicopedagogia">{{ psicopedagogia.hora_inicio }}</td>
+        </ng-container>
+
+        <!-- Hora Fin Column -->
+        <ng-container matColumnDef="hora_fin">
+          <th mat-header-cell *matHeaderCellDef>Hora Fin</th>
+          <td mat-cell *matCellDef="let psicopedagogia">{{ psicopedagogia.hora_fin }}</td>
+        </ng-container>
+
+        <!-- Psicólogo Column -->
+        <ng-container matColumnDef="psicologo">
+          <th mat-header-cell *matHeaderCellDef>Psicólogo</th>
+          <td mat-cell *matCellDef="let psicopedagogia">
+            {{ psicopedagogia.psicologo?.user?.get_full_name || psicopedagogia.psicologo?.user?.username || 'Sin asignar' }}
+          </td>
+        </ng-container>
+
+        <!-- Estado Column -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+          <td mat-cell *matCellDef="let psicopedagogia">
+            <mat-chip [color]="getEstadoColor(psicopedagogia.estado)" selected>
+              {{ getEstadoLabel(psicopedagogia.estado) }}
+            </mat-chip>
+          </td>
+        </ng-container>
+
+        <!-- Observaciones Column -->
+        <ng-container matColumnDef="observaciones">
+          <th mat-header-cell *matHeaderCellDef>Observaciones</th>
+          <td mat-cell *matCellDef="let psicopedagogia">
+            <span [matTooltip]="psicopedagogia.observaciones">
+              {{ psicopedagogia.observaciones ? (psicopedagogia.observaciones.length > 50 ? psicopedagogia.observaciones.substring(0, 50) + '...' : psicopedagogia.observaciones) : 'Sin observaciones' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+      <div *ngIf="psicopedagogias.data.length === 0" class="no-psicopedagogias">
+        <mat-icon>psychology</mat-icon>
+        <p>No tienes psicopedagogías programadas en este momento.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

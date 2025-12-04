@@ -1,0 +1,134 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  color: #1976d2;
+  margin: 0;
+  font-weight: 500;
+}
+
+.stats-grid {
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.stat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-right: 16px;
+}
+
+.stat-icon.surveys {
+  color: #f44336;
+}
+
+.stat-icon.active-surveys {
+  color: #4caf50;
+}
+
+.stat-icon.workshops {
+  color: #ff9800;
+}
+
+.stat-icon.active-workshops {
+  color: #2196f3;
+}
+
+.stat-icon.students {
+  color: #9c27b0;
+}
+
+.stat-icon.responses {
+  color: #607d8b;
+}
+
+.stat-info h2 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.stat-info p {
+  margin: 4px 0 0 0;
+  color: #666;
+  font-weight: 500;
+}
+
+.charts-section {
+  margin-bottom: 40px;
+}
+
+.charts-section h2 {
+  color: #1976d2;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.charts-grid {
+  margin-top: 16px;
+}
+
+.chart-card {
+  height: 100%;
+  padding: 16px;
+}
+
+.chart-card mat-card-content {
+  height: calc(100% - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-chart-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.recent-surveys-card {
+  margin-top: 24px;
+}
+
+.surveys-table {
+  width: 100%;
+}
+
+.mat-column-titulo {
+  min-width: 200px;
+}
+
+.mat-column-servicio {
+  min-width: 150px;
+}
+
+.mat-column-activa {
+  width: 100px;
+  text-align: center;
+}
+
+.mat-column-total_responses {
+  width: 100px;
+  text-align: center;
+}

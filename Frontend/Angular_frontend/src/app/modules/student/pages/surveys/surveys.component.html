@@ -1,0 +1,38 @@
+<div class="surveys-container">
+  <h1>Mis Encuestas</h1>
+
+  <mat-card class="surveys-card">
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let survey of surveys" class="survey-item">
+          <div class="survey-content">
+            <div class="survey-info">
+              <h3>{{ survey.titulo }}</h3>
+              <p>{{ survey.descripcion }}</p>
+              <p><strong>Servicio:</strong> {{ survey.servicio?.nombre }}</p>
+            </div>
+
+            <div class="survey-actions">
+              <mat-chip [color]="isSurveyCompleted(survey) ? 'accent' : 'primary'" selected>
+                {{ isSurveyCompleted(survey) ? 'Completada' : 'Pendiente' }}
+              </mat-chip>
+
+              <button mat-raised-button
+                      [color]="isSurveyCompleted(survey) ? 'accent' : 'primary'"
+                      [disabled]="isSurveyCompleted(survey)"
+                      (click)="takeSurvey(survey)">
+                <mat-icon>{{ isSurveyCompleted(survey) ? 'check_circle' : 'assignment' }}</mat-icon>
+                {{ isSurveyCompleted(survey) ? 'Ver Respuestas' : 'Responder' }}
+              </button>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <div *ngIf="surveys.length === 0" class="no-surveys">
+        <mat-icon>assignment</mat-icon>
+        <p>No hay encuestas disponibles en este momento.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
